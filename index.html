@@ -39,15 +39,29 @@ function calculateMousePosition(evt){
 	 canvas.addEventListener('mousemove',
 	 	function(evt){
 	 		var mousePosition = calculateMousePosition(evt);
-	 		paddleLY = mousePosition.y;
+	 		paddleLY = mousePosition.y-(PADDLE_HEIGHT/2);
 	 	});
 
 	}
-	
+	function ballReset(){
+		ballSpeedx = -ballSpeedx;
+		ballx = canvas.width/2;
+		bally = canvas.height/2;
+	}
+
+
 	function moveEverything(){
 	ballx = ballx+ballSpeedx;
 	bally = bally+ballSpeedy;
-	if(ballx < 0) ballSpeedx = -ballSpeedx;
+	if(ballx <=10){
+		if(bally > paddleLY && bally < paddleLY + PADDLE_HEIGHT)
+		{
+			ballSpeedx = - ballSpeedx;
+		}else {
+	
+	ballReset();
+}
+}
 	if(ballx > canvas.width) ballSpeedx = -ballSpeedx;
   	if(bally < 0) ballSpeedy = -ballSpeedy;
   	if(bally >canvas.height) ballSpeedy = -ballSpeedy;
@@ -57,7 +71,7 @@ function calculateMousePosition(evt){
 	//screen
 	colorRect(0,0,canvas.width,canvas.height,'black');
 	//left player paddle
-	colorRect(0,210,10,100,'white');
+	colorRect(0,paddleLY,10,100,'white');
 	//draw ball
 	colorCircle(ballx,bally,10,'white');
 	
