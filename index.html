@@ -12,7 +12,9 @@ var bally = 50;
 var ballSpeedx = 10;
 var ballSpeedy = 4;
 var paddleLY = 250;
+var paddleRY  =250;
 const PADDLE_HEIGHT = 100;
+const PADDLE_THICKNESS = 10;
 
 function calculateMousePosition(evt){
 	var rect = canvas.getBoundingClientRect();
@@ -53,7 +55,7 @@ function calculateMousePosition(evt){
 	function moveEverything(){
 	ballx = ballx+ballSpeedx;
 	bally = bally+ballSpeedy;
-	if(ballx <=10){
+	if(ballx ==10){
 		if(bally > paddleLY && bally < paddleLY + PADDLE_HEIGHT)
 		{
 			ballSpeedx = - ballSpeedx;
@@ -69,11 +71,14 @@ function calculateMousePosition(evt){
 
 	function drawEverything(){
 	//screen
-	colorRect(0,0,canvas.width,canvas.height,'black');
+	colorRect(0,0,canvas.width,canvas.height,'green');
 	//left player paddle
-	colorRect(0,paddleLY,10,100,'white');
+	colorRect(0,paddleLY,PADDLE_THICKNESS,PADDLE_HEIGHT,'red');
+ 	//right plyayer(computer) paddle
+	colorRect(canvas.width-PADDLE_THICKNESS,paddleRY,PADDLE_THICKNESS,PADDLE_HEIGHT,'red');
+
 	//draw ball
-	colorCircle(ballx,bally,10,'white');
+	colorCircle(ballx,bally,10,'orange');
 	
 	}
 function colorCircle(centerX,centerY,radius,drawColor){
