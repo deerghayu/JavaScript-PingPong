@@ -1,36 +1,24 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <canvas id= "gameCanvas"
 		 width = "800"
 		 height ="600"></canvas>
 
-<script type="text/javascript">
-
+<script>
 var canvas;
 var canvasContext;
 var ballx =50;
 var bally = 50;
 var ballSpeedx = 10;
 var ballSpeedy = 4;
-var paddleLY 250;
-const PADDLE_HEIGHT = 150;
-var framePerSecond = 30;
-
-function calculateMousePosition(evt){
-	var rect = canvas.getBoundingClientRect();
-	var root = document.documentElement;
-	var mouseX = evt.clientX - rect.left - root.scrollLeft;
-	var mouseY = evt.clientY - rect.top - root.scrollTop;
-	return{
-		x:mouseX,
-		y:mouseY
-	}
-}
+var paddleLY = 250;
+const PADDLE_HEIGHT = 100;
 
 	window.onload = function  () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-	
+	var framePerSecond = 30;
+
 	 setInterval(function(){
 	 	moveEverything();
 	 	drawEverything();
