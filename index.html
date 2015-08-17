@@ -13,6 +13,8 @@ var ballSpeedx = 10;
 var ballSpeedy = 4;
 var player1Score = 0;
 var player2Score = 0;
+const WINNING_SCORE = 3;
+var showingWinScore = false;
 
 var paddleLY = 250;
 var paddleRY  =250;
@@ -49,6 +51,13 @@ function calculateMousePosition(evt){
 	 	});
 	}
 	function ballReset(){
+		if(player1Score >= WINNING_SCORE || 
+			player2Score >= WINNING_SCORE){
+			player1Score =	0;
+			player2Score = 0;
+			showingWinScore = true;
+		}
+
 		ballSpeedx = -ballSpeedx;
 		ballx = canvas.width/2;
 		bally = canvas.height/2;
@@ -64,6 +73,9 @@ function computerMovement(){
 }
 
 	function moveEverything(){
+		if(showingWinScore){
+			return ;
+		}
 	computerMovement();
 	ballx +=	ballSpeedx;
 	bally +=	ballSpeedy;	
@@ -77,9 +89,11 @@ function computerMovement(){
 			ballSpeedy = deltaY *0.35;
 
 		}else {	
+
+	player2Score ++;	//must be Before ballReset
 	ballReset();
-	player2Score ++;
-}
+
+	}
 }
 	if(ballx > canvas.width){
 	if(bally > paddleRY && 
@@ -89,13 +103,10 @@ function computerMovement(){
 			var deltaY = bally -(paddleRY+PADDLE_HEIGHT/2);
 			ballSpeedy = deltaY * 0.35;
 		}else {
-	
+	player1Score ++; //must be Before ballReset
 	ballReset();
-	player1Score ++;
-}
+	}
 
-
-	 //llSpeedx = -ballSpeedx;
 	}
   	if(bally < 0) ballSpeedy = -ballSpeedy;
   	if(bally >canvas.height) ballSpeedy = -ballSpeedy;
