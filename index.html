@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <canvas id= "gameCanvas"
 		 width = "800"
@@ -11,6 +11,9 @@ var ballx =50;
 var bally = 50;
 var ballSpeedx = 10;
 var ballSpeedy = 4;
+var player1Score = 0;
+var player2Score = 0;
+
 var paddleLY = 250;
 var paddleRY  =250;
 const PADDLE_HEIGHT = 100;
@@ -52,9 +55,10 @@ function calculateMousePosition(evt){
 	}
 function computerMovement(){
 	var paddleRYCenter = paddleRY +PADDLE_HEIGHT/2;
-	if(paddleRYCenter<	bally){
+	if(paddleRYCenter<	bally -35){
 		paddleRY += 6;
-	} else{
+	
+	} else if(paddleRYCenter > bally +35){
 		paddleRY-= 6;
 	}
 }
@@ -69,9 +73,12 @@ function computerMovement(){
 			bally < paddleLY + PADDLE_HEIGHT)
 		{
 			ballSpeedx = - ballSpeedx;
-		}else {
-	
+			var deltaY = bally -(paddleLY +PADDLE_HEIGHT/2);
+			ballSpeedy = deltaY *0.35;
+
+		}else {	
 	ballReset();
+	player2Score ++;
 }
 }
 	if(ballx > canvas.width){
@@ -79,9 +86,12 @@ function computerMovement(){
 			bally < paddleRY + PADDLE_HEIGHT)
 		{
 			ballSpeedx = - ballSpeedx;
+			var deltaY = bally -(paddleRY+PADDLE_HEIGHT/2);
+			ballSpeedy = deltaY * 0.35;
 		}else {
 	
 	ballReset();
+	player1Score ++;
 }
 
 
@@ -98,9 +108,10 @@ function computerMovement(){
 	colorRect(0,paddleLY,PADDLE_THICKNESS,PADDLE_HEIGHT,'red');
  	//right plyayer(computer) paddle
 	colorRect(canvas.width-PADDLE_THICKNESS,paddleRY,PADDLE_THICKNESS,PADDLE_HEIGHT,'red');
-
 	//draw ball
 	colorCircle(ballx,bally,10,'orange');
+	canvasContext.fillText(player1Score,100,100);
+	canvasContext.fillText(	player2Score,canvas.width-100,100);
 	
 	}
 function colorCircle(centerX,centerY,radius,drawColor){
