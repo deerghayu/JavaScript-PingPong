@@ -42,8 +42,8 @@ function calculateMousePosition(evt){
 	 	function(evt){
 	 		var mousePosition = calculateMousePosition(evt);
 	 		paddleLY = mousePosition.y-(PADDLE_HEIGHT/2);
+	 	//	paddleRY = mousePosition.y-(PADDLE_HEIGHT/2);
 	 	});
-
 	}
 	function ballReset(){
 		ballSpeedx = -ballSpeedx;
@@ -54,9 +54,10 @@ function calculateMousePosition(evt){
 
 	function moveEverything(){
 	ballx = ballx+ballSpeedx;
-	bally = bally+ballSpeedy;
+	bally = bally+ballSpeedy;		
 	if(ballx ==10){
-		if(bally > paddleLY && bally < paddleLY + PADDLE_HEIGHT)
+		if(bally > paddleLY && 
+			bally < paddleLY + PADDLE_HEIGHT)
 		{
 			ballSpeedx = - ballSpeedx;
 		}else {
@@ -64,7 +65,19 @@ function calculateMousePosition(evt){
 	ballReset();
 }
 }
-	if(ballx > canvas.width) ballSpeedx = -ballSpeedx;
+	if(ballx > canvas.width){
+	if(bally > paddleRY && 
+			bally < paddleRY + PADDLE_HEIGHT)
+		{
+			ballSpeedx = - ballSpeedx;
+		}else {
+	
+	ballReset();
+}
+
+
+	 //llSpeedx = -ballSpeedx;
+	}
   	if(bally < 0) ballSpeedy = -ballSpeedy;
   	if(bally >canvas.height) ballSpeedy = -ballSpeedy;
 }
