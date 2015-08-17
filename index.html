@@ -50,11 +50,20 @@ function calculateMousePosition(evt){
 		ballx = canvas.width/2;
 		bally = canvas.height/2;
 	}
-
+function computerMovement(){
+	var paddleRYCenter = paddleRY +PADDLE_HEIGHT/2;
+	if(paddleRYCenter<	bally){
+		paddleRY += 6;
+	} else{
+		paddleRY-= 6;
+	}
+}
 
 	function moveEverything(){
-	ballx = ballx+ballSpeedx;
-	bally = bally+ballSpeedy;		
+	computerMovement();
+	ballx +=	ballSpeedx;
+	bally +=	ballSpeedy;	
+
 	if(ballx ==10){
 		if(bally > paddleLY && 
 			bally < paddleLY + PADDLE_HEIGHT)
@@ -108,6 +117,5 @@ function colorRect(leftX,topY,width,height,drawColor){
 
 </script>
 <body>
-some text
 </body>
 </html>
